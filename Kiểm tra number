@@ -1,0 +1,21 @@
+<script type="text/javascript" language="javascript">
+   function checkNum(x)
+{
+  var s_len=x.value.length ;
+  var s_charcode = 0;
+    for (var s_i=0;s_i<s_len;s_i++)
+    {
+     s_charcode = x.value.charCodeAt(s_i);
+     if(!((s_charcode>=48 && s_charcode<=57)))
+      {
+         alert("Giá tiền phải là số");
+          x.value='';
+         x.focus();
+        return false;
+      }
+    }
+    return true;
+}
+</script>
+
+<html:text name="DanhMucGiaNhienLieu" onchange='checkNum(this)' property="giatien" style="width:100px;" styleClass="fieldText" />
