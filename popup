@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+    
+    $("#close, .background_overlay").click(function(){
+            $("#treeViewDiv").fadeOut(400);
+            $(".background_overlay").fadeOut(400);
+    });
+    });
+
+//position the popup at the center of the page
+    function positionPopup(){
+      if(!$("#treeViewDiv").is(':visible')){
+        return;
+      } 
+      $("#treeViewDiv").css({
+          
+          left: ($(window).width() - $('#treeViewDiv').width()) / 2,
+          top: ($(window).width() - $('#treeViewDiv').width()) / 7,
+          position:'fixed'
+      });
+    
+    }
+    //maintain the popup at center of the page when browser resized
+    $(window).bind('resize',positionPopup);
+	
+	function openPopup(){
+        
+        $("#treeViewDiv").fadeIn(700);
+        $(".background_overlay").fadeIn(400);
+        positionPopup();
+    };
+</script>
+
+<style type="text/css">
+.fieldTextLuanChuyen{
+    width:100%;
+    height:100px;
+    resize:none;
+}
+#treeViewDiv{
+	position: fixed;
+	border: 5px solid lightblue;
+	padding: 10px;
+	background: white;
+	width: 500px;
+	height: 400px;
+	z-index: 200;        
+}
+
+.background_overlay { position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; z-index: 1; background:black; opacity: 0.4;}
+
+#close{
+    position: absolute;
+    right: -15px;
+    top:-15px;
+    width: 30px;
+}
+
+</style> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ // jsp
+ 
+ <html:button property="_POPUP" onclick="openPopup();postAjax('DmGiaiDoanThanhToan','treeViewDiv',anchor + ':_VIEW_POPUP')" styleClass="button">
+                    <bean:message key="danhmuc.button.sua" bundle="<%=interfaces%>"/>
+       </html:button>
+       <div id="treeViewDiv" style="position: fixed;display:none;overflow: scroll;">
+       </div>
+    <div class="background_overlay" style="display: none;"></div>
