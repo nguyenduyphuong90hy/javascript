@@ -1,0 +1,75 @@
+   var mangso = ['<bean:message key="docso.khong" bundle="<%=interfaces%>"/>','<bean:message key="docso.mot" bundle="<%=interfaces%>"/>','<bean:message key="docso.hai" bundle="<%=interfaces%>"/>','<bean:message key="docso.ba" bundle="<%=interfaces%>"/>','<bean:message key="docso.bon" bundle="<%=interfaces%>"/>','<bean:message key="docso.nam" bundle="<%=interfaces%>"/>','<bean:message key="docso.sau" bundle="<%=interfaces%>"/>','<bean:message key="docso.bay" bundle="<%=interfaces%>"/>','<bean:message key="docso.tam" bundle="<%=interfaces%>"/>','<bean:message key="docso.chin" bundle="<%=interfaces%>"/>'];
+function dochangchuc(so,daydu)
+{
+    var chuoi = "";
+    chuc = Math.floor(so/10);
+    donvi = so%10;
+    if (chuc>1) {
+        chuoi = " " + mangso[chuc] + ' <bean:message key="docso.muoi" bundle="<%=interfaces%>"/>';
+        if (donvi==1) {
+            chuoi += ' <bean:message key="docso.mot1" bundle="<%=interfaces%>"/>';
+        }
+    } else if (chuc==1) {
+        chuoi = ' <bean:message key="docso.muoi1" bundle="<%=interfaces%>"/>';
+        if (donvi==1) {
+            chuoi += ' <bean:message key="docso.mot" bundle="<%=interfaces%>"/>';
+        }
+    } else if (daydu && donvi>0) {
+        chuoi = ' <bean:message key="docso.le" bundle="<%=interfaces%>"/>';
+    }
+    if (donvi==5 && chuc>=1) {
+        chuoi += ' <bean:message key="docso.lam" bundle="<%=interfaces%>"/>';
+    } else if (donvi>1||(donvi==1&&chuc==0)) {
+        chuoi += " " + mangso[ donvi ];
+    }
+    return chuoi;
+}
+function docblock(so,daydu)
+{
+    var chuoi = "";
+    tram = Math.floor(so/100);
+    so = so%100;
+    if (daydu || tram>0) {
+        chuoi = " " + mangso[tram] + ' <bean:message key="docso.tram" bundle="<%=interfaces%>"/>';
+        chuoi += dochangchuc(so,true);
+    } else {
+        chuoi = dochangchuc(so,false);
+    }
+    return chuoi;
+}
+function dochangtrieu(so,daydu)
+{
+    var chuoi = "";
+    trieu = Math.floor(so/1000000);
+    so = so%1000000;
+    if (trieu>0) {
+        chuoi = docblock(trieu,daydu) + ' <bean:message key="docso.trieu" bundle="<%=interfaces%>"/>';
+        daydu = true;
+    }
+    nghin = Math.floor(so/1000);
+    so = so%1000;
+    if (nghin>0) {
+        chuoi += docblock(nghin,daydu) + ' <bean:message key="docso.nghin" bundle="<%=interfaces%>"/>';
+        daydu = true;
+    }
+    if (so>0) {
+        chuoi += docblock(so,daydu);
+    }
+    return chuoi;
+}
+function docso(so)
+{
+        if (so==0) return mangso[0];
+    var chuoi = "", hauto = "";
+    do {
+        ty = so%1000000000;
+        so = Math.floor(so/1000000000);
+        if (so>0) {
+            chuoi = dochangtrieu(ty,true) + hauto + chuoi;
+        } else {
+            chuoi = dochangtrieu(ty,false) + hauto + chuoi;
+        }
+        hauto = ' <bean:message key="docso.ty" bundle="<%=interfaces%>"/>';
+    } while (so>0);
+    return chuoi;
+}  
