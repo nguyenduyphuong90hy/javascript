@@ -1,0 +1,4 @@
+<td height="30px" width="100px">
+  <input onclick="popUpCalendar(this,'denngay_dk','dd/mm/yyyy');return false;" type="text" style="width:200px;" name="denngay_dk" id="denngay_dk" value="<bean:write name="search_hoso" property="denngay_dk"/>"   />
+  <img src="<%=contextPath%>/images/ew_calendar.gif" alt='option date' onClick="popUpCalendar(this,'denngay_dk','dd/mm/yyyy');return false;">          
+</td>
