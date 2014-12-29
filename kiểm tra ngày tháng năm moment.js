@@ -14,3 +14,9 @@ function validate1(){
     }
 }
 </script>
+ $("input#dienthoai_nguoidk").formance("format_number") // setup the formatter
+                    .on('keyup', function(event) {
+                        if ($(this).formance('validate_number')) {} else {
+                            alert('<bean:message key="danhsachhoadonnhap.capnhat.number" bundle="<%=interfaces%>"/>');
+                        }
+                    });
