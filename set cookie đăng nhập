@@ -1,0 +1,35 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var remember = $.cookie('remember');
+    if (remember == 'true') 
+    {
+        var username = $.cookie('username');
+        var password = $.cookie('password');
+        // autofill the fields
+        $('#username').val(username);
+        $('input[name=md5pw]').val(password);
+    $('#savepass').attr('checked',true);//#login-check checkbox id..
+    }
+});
+
+function cookies(){
+ if ($('#savepass').is(':checked')) {
+            var username = $('#username').val();
+            var password = $('input[name=md5pw]').val();
+            // set cookies to expire in 14 days
+            $.cookie('username', username, { expires: 14 });
+            $.cookie('password', password, { expires: 14 });
+            $.cookie('remember', true, { expires: 14 });                
+        }
+        else
+        {
+            // reset cookies
+            $.cookie('username', null);
+            $.cookie('password', null);
+            $.cookie('remember', null);
+        }
+}
+
+</script>
+ 
